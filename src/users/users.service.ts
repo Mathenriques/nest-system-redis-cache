@@ -13,17 +13,7 @@ export class UsersServices {
 
 
   public async getAllUsers() {
-    const cachedUsers = await this.cacheManager.get('users');
-
-    if (cachedUsers) {
-      console.log("Achado no Cache!", cachedUsers);
-      return cachedUsers;
-    }
-
-    console.log('Busca no Banco de dados!')
     const usersDb = await this.prismaService.user.findMany();
-
-    await this.cacheManager.set('users', usersDb, 10000)
 
     return usersDb 
 

@@ -1,9 +1,10 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, Get, Post, UseInterceptors } from "@nestjs/common";
 import { UsersServices } from "./users.service";
 import { CreateUserDto } from "./users.dto";
-import { create } from "domain";
+import { CacheInterceptor } from "@nestjs/cache-manager";
 
 @Controller('users')
+@UseInterceptors(CacheInterceptor)
 export class UsersController {
 
   constructor(private readonly usersService: UsersServices) {}
